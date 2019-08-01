@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import wlSelect from "./components/wl-vue-select.vue";
+// import wlSelect from "./components/wl-vue-select.vue";
 
 export default {
   name: "app",
@@ -43,7 +43,7 @@ export default {
     };
   },
   components: {
-    wlSelect
+    // wlSelect
   }
 };
 </script>
