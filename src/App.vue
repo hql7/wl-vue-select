@@ -1,12 +1,12 @@
 <template>
   <div id="app">
-    <wlSelect
+    <wlVueSelect
       v-model="value"
       :props="props"
       :data="data"
       multiple
       default-select
-    ></wlSelect>
+    ></wlVueSelect>
   </div>
 </template>
 
