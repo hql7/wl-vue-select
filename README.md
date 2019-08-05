@@ -56,5 +56,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ## 版本记录
 
-1. 0.1.0 初次发布，在基于el-select上增加全选和默认选中功能
+> 0.1.2 更新算法，全选转单选时无需手动取消全选选项
+
+> 0.1.0 初次发布，在基于el-select上增加全选和默认选中功能
   

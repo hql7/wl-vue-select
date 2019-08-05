@@ -120,12 +120,35 @@ export default {
   },
   methods: {
     selectChange(val) {
-      if (!this.multiple) {
+      if (!this.multiple || val.length === 0) {
         this.$emit("change", val);
         return;
       }
+      let _data = [];
+      let _all_item_index = this.valueKey
+        ? val.findIndex(item => item[this.selfProps.value] === this.empty)
+        : val.findIndex(item => item === this.empty);
+      if (_all_item_index === -1 && val.length === this.selfData.length) {
+        _data = this.valueKey
+          ? [
+              {
+                [this.selfProps.value]: this.empty,
+                [this.selfProps.label]: "全部"
+              }
+            ]
+          : [this.empty];
+      } else {
+        let arr_length_index = val.length - 1;
+        if (_all_item_index === arr_length_index) {
+          _data = [val[arr_length_index]];
+        } else {
+          _data = this.valueKey
+            ? val.filter(item => item[this.selfProps.value] !== this.empty)
+            : val.filter(item => item !== this.empty);
+        }
+      }
       // 处理多选的全选效果
-      let _all_item = this.valueKey
+      /* let _all_item = this.valueKey
         ? val.find(item => item[this.selfProps.value] === this.empty)
         : val.find(item => item === this.empty);
       let _data = _all_item
@@ -139,7 +162,7 @@ export default {
               [this.selfProps.label]: "全部"
             }
           ]
-        : [this.empty];
+        : [this.empty]; */
       this.$emit("change", _data);
     }
   },
