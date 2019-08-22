@@ -32,6 +32,8 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
   这是一个基于elementUi的el-select组件的二次封装的下拉框，增加了全选功能和默认选中功能，因这两个需求非常普遍，所以作为一个独立插件发布。
   [el-select](https://element.eleme.cn/#/zh-CN/component/select)
 
+## [在线访问](https://hql7.github.io/)
+
 ## 快速上手
 
 `npm i wl-vue-select --save`

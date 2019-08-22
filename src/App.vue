@@ -7,11 +7,13 @@
       multiple
       default-select
     ></wlVueSelect>
+    <treeSelect></treeSelect>
   </div>
 </template>
 
 <script>
 import wlVueSelect from "./components/wl-vue-select.vue";
+import treeSelect from "./components/tree-select.vue";
 
 export default {
   name: "app",
@@ -43,7 +45,8 @@ export default {
     };
   },
   components: {
-    wlVueSelect
+    wlVueSelect,
+    treeSelect
   }
 };
 </script>
