@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <!---->
     <wlVueSelect
       v-model="value"
       :props="props"
@@ -7,13 +8,19 @@
       multiple
       default-select
     ></wlVueSelect>
-    <treeSelect></treeSelect>
+    <p>----------分割线------------</p>
+    <wlTreeSelect
+      checkbox
+      width="240"
+      :data="treeData"
+      :selected="selected"
+    ></wlTreeSelect>
   </div>
 </template>
 
 <script>
-import wlVueSelect from "./components/wl-vue-select.vue";
-import treeSelect from "./components/tree-select.vue";
+// import wlVueSelect from "./components/wl-vue-select.vue";
+// import wlTreeSelect from "./components/wl-tree-select.vue";
 
 export default {
   name: "app",
@@ -41,12 +48,37 @@ export default {
       props: {
         label: "name",
         value: "id"
-      } // 配置
+      }, // 配置
+      treeData: [
+        {
+          id: "love",
+          name: "所有和你走过的风光",
+          children: [
+            {
+              id: 1,
+              name: "海边"
+            },
+            {
+              id: 2,
+              name: "森林"
+            },
+            {
+              id: 3,
+              name: "草原"
+            },
+            {
+              id: 4,
+              name: "古城"
+            }
+          ]
+        }
+      ],
+      selected: ["1"] // 树下拉框选中数据
     };
   },
   components: {
-    wlVueSelect,
-    treeSelect
+    // wlVueSelect,
+    // treeSelect
   }
 };
 </script>

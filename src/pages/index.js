@@ -1,6 +1,7 @@
 import wlVueSelect from "./wl-select/";
+import wlTreeSelect from "./wl-tree/";
 
-const components = [wlVueSelect];
+const components = [wlVueSelect, wlTreeSelect];
 
 const install = function(Vue) {
   components.forEach(component => {
@@ -14,5 +15,6 @@ if (typeof window !== "undefined" && window.Vue) {
 
 export default {
   install,
-  wlVueSelect
+  wlVueSelect,
+  wlTreeSelect
 };

@@ -119,6 +119,7 @@ export default {
     }
   },
   methods: {
+    // 默认下拉框选中改变
     selectChange(val) {
       if (!this.multiple || val.length === 0) {
         this.$emit("change", val);

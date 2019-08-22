@@ -1,52 +1,44 @@
 // 树形下拉框
 <template>
-  <div class="tree-select">
+  <div class="wl-tree-select" :style="{ width: width + 'px' }">
     <!-- 选中框区 -->
-    <div
-      class="selected-box"
-      tabindex="1"
-      @click.stop="options_show = !options_show"
-    >
-      <!-- tab盒子 -->
-      <div class="tag-box">
-        <el-tag
-          size="small"
-          v-for="item in selecteds"
-          :key="item[nodeKey]"
-          @close="tabClose(item[nodeKey])"
-          closable
-        >
-          {{ item[props.label] }}
-        </el-tag>
+    <el-popover placement="bottom" trigger="click" :width="width">
+      <el-tree
+        ref="tree-select"
+        class="wl-options-tree"
+        highlight-current
+        default-expand-all
+        :data="selfData"
+        :props="selfProps"
+        :node-key="nodeKey"
+        :show-checkbox="checkbox"
+        :expand-on-click-node="false"
+        :default-checked-keys="checked_keys"
+        @check-change="handleCheckChange"
+        @node-click="treeItemClick"
+      >
+      </el-tree>
+      <!---->
+      <div slot="reference" class="selected-box">
+        <div class="tag-box">
+          <el-tag
+            size="medium"
+            v-for="item in selecteds"
+            closable
+            :key="item[nodeKey]"
+            @close="tabClose(item[nodeKey])"
+          >
+            {{ item[selfProps.label] }}
+          </el-tag>
+        </div>
+        <div class="icon-box">
+          <transition name="fade-rotate" mode="out-in">
+            <i class="el-icon-arrow-down" v-if="!options_show" key="top"></i>
+            <i class="el-icon-arrow-up" v-else key="btm"></i>
+          </transition>
+        </div>
       </div>
-      <!-- 旋转图标盒子 -->
-      <div class="icon-box">
-        <transition name="fade-rotate" mode="out-in">
-          <i class="el-icon-arrow-down" v-if="!options_show" key="top"></i>
-          <i class="el-icon-arrow-up" v-else key="btm"></i>
-        </transition>
-      </div>
-    </div>
-    <!-- 选项区 -->
-    <transition name="fade-in">
-      <el-scrollbar class="options-tree-scroll" v-show="options_show">
-        <el-tree
-          ref="tree-select"
-          class="options-tree"
-          :default-checked-keys="checked_keys"
-          :props="props"
-          :data="selfData"
-          default-expand-all
-          :show-checkbox="checkbox"
-          :node-key="nodeKey"
-          :expand-on-click-node="false"
-          highlight-current
-          @check-change="handleCheckChange"
-          @node-click="treeItemClick"
-        >
-        </el-tree>
-      </el-scrollbar>
-    </transition>
+    </el-popover>
   </div>
 </template>
 
@@ -67,11 +59,13 @@
  */
 import { valInDeep } from "@/util/array";
 export default {
+  name: "wl-tree-select",
   data() {
     return {
       selecteds: [], // 选中数据
       options_show: false, // 是否显示下拉选项
-      checked_keys: [] // 默认选中
+      checked_keys: [], // 默认选中
+      guid: "00000000-0000-0000-0000-000000000000"
     };
   },
   props: {
@@ -84,27 +78,23 @@ export default {
     props: {
       type: Object,
       default: () => {
-        return {
-          label: "Name",
-          children: "Children",
-          disabled: data => {
-            return data.Disabled;
-          }
-        };
+        return {};
       }
     },
     // node-key
     nodeKey: {
       type: String,
-      default: "Id"
+      default: "id"
     },
     // 选中数据
-    selected: [String, Number],
+    selected: [String, Number, Array],
     // 是否可多选
     checkbox: {
       type: Boolean,
       default: false
-    }
+    },
+    // 宽度
+    width: String
   },
   methods: {
     // 树节点-checkbox选中
@@ -113,7 +103,7 @@ export default {
       this.selecteds = nodes;
     },
     // 树节点-点击选中
-    treeItemClick(data, node) {
+    treeItemClick(item, node) {
       if (this.checkbox || node.level <= 1) {
         return;
       }
@@ -137,39 +127,59 @@ export default {
     },
     // 查询节点
     querySelectedItem(data, val) {
-      if (val == _gc_.guid) return;
+      if (val == this.guid) return;
       this.selecteds = valInDeep(data, val, this.nodeKey, this.props.children);
+    },
+    // 处理默认选中数据
+    chaeckDefaultValue() {
+      if (!this.selected) return;
+      if (this.checkbox) {
+        this.checked_keys = this.selected;
+        this.$nextTick(() => {
+          this.selecteds = this.$refs["tree-select"].getCheckedNodes(true);
+        });
+      } else {
+        this.querySelectedItem(this.selfData, this.selected);
+      }
     }
+  },
+  created() {
+    this.chaeckDefaultValue();
   },
   watch: {
     selecteds(val) {
       this.$emit("selected", val);
     },
     selected(val) {
-      if (this.checkbox) {
-        this.checked_keys = val;
-        this.$nextTick(() => {
-          this.selecteds = this.$refs["tree-select"].getCheckedNodes(true);
-        });
-      } else {
-        this.querySelectedItem(this.selfData, val);
-      }
+      this.chaeckDefaultValue();
     }
   },
   computed: {
     selfData() {
       return this.data;
+    },
+    selfProps() {
+      return {
+        label: "name",
+        children: "children",
+        disabled: data => {
+          return data.disabled;
+        },
+        ...this.props
+      };
     }
   }
 };
 </script>
 
 <style lang="scss">
-.tree-select {
+.wl-tree-select {
   position: relative;
+  display: inline-block;
+  width: 240px;
   outline: none;
 
-  > .selected-box {
+  .selected-box {
     display: flex;
     border: 1px solid #dcdfe6;
     padding: 0 10px;
@@ -187,7 +197,7 @@ export default {
     > .tag-box {
       display: inline-block;
       width: calc(100% - 20px);
-      margin-top: 0px;
+      text-align: left;
     }
 
     > .icon-box {
@@ -199,25 +209,15 @@ export default {
       color: #c0c4cc;
     }
   }
-  > .options-tree-scroll {
-    position: absolute;
-    width: 100%;
-    height: 460px;
-    z-index: 9;
-    background-color: #fbfbfb;
-    border-radius: 4px;
-    box-sizing: border-box;
 
-    > .el-scrollbar__wrap {
-      overflow-x: hidden;
-    }
-
-    .options-tree {
-      border: 1px solid #f5f5f5;
-
-      padding: 10px;
-    }
+  .el-tag + .el-tag {
+    margin-left: 4px;
   }
+}
+
+.wl-options-tree .el-tree-node__content {
+  height: 34px;
+  line-height: 34px;
 }
 
 .fade-rotate-enter-active {
@@ -228,29 +228,12 @@ export default {
   animation: rotate 0.3s reverse;
 }
 
-.fade-in-enter-active {
-  animation: fade-in 0.3s;
-}
-
-.fade-in-leave-active {
-  animation: fade-in 0.3s reverse;
-}
-
 @keyframes rotate {
   0% {
     transform: rotate(180deg);
   }
   100% {
     transform: rotate(0);
-  }
-}
-
-@keyframes fade-in {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
   }
 }
 </style>

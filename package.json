@@ -1,6 +1,6 @@
 {
   "name": "wl-vue-select",
-  "version": "0.1.2",
+  "version": "0.2.3",
   "author": "weilan<https://github.com/hql7>",
   "license": "MIT",
   "private": false,
@@ -21,7 +21,7 @@
     "core-js": "^2.6.5",
     "element-ui": "^2.4.5",
     "vue": "^2.6.10",
-    "wl-vue-select": "^0.1.1"
+    "wl-vue-select": "^0.2.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.9.0",
