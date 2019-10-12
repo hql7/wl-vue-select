@@ -2,7 +2,8 @@
 <template>
   <div class="wl-tree-select" :style="{ width: width + 'px' }">
     <!-- 选中框区 -->
-    <el-popover placement="bottom" trigger="click" :width="width">
+    <el-popover placement="bottom" trigger="manual" :width="width" v-model="options_show">
+      <el-scrollbar class="wl-treeselect-popover">
       <el-tree
         ref="tree-select"
         class="wl-options-tree"
@@ -18,8 +19,9 @@
         @node-click="treeItemClick"
       >
       </el-tree>
+      </el-scrollbar>
       <!---->
-      <div slot="reference" class="selected-box">
+      <div slot="reference" class="selected-box" @click="options_show = !options_show">
         <div class="tag-box">
           <el-tag
             size="medium"
@@ -57,7 +59,6 @@
  * emit:
  * selected -> 选中数据
  */
-import { valInDeep } from "@/util/array";
 export default {
   name: "wlTreeSelect",
   data() {
@@ -87,9 +88,14 @@ export default {
       default: "id"
     },
     // 选中数据
-    selected: [String, Number, Array],
+    selected: [String, Number, Array, Object],
     // 是否可多选
     checkbox: {
+      type: Boolean,
+      default: false
+    },
+    // 是否只可选叶子节点
+    leaf: {
       type: Boolean,
       default: false
     },
@@ -104,11 +110,10 @@ export default {
     },
     // 树节点-点击选中
     treeItemClick(item, node) {
-      if (this.checkbox || node.level <= 1) {
+      if (this.checkbox || (this.leaf && !node.isLeaf)) {
         return;
       }
-
-      this.selecteds = [data];
+      this.selecteds = [item];
       this.options_show = false;
     },
     // tag标签关闭
@@ -125,21 +130,28 @@ export default {
     clear() {
       this.selecteds = [];
     },
-    // 查询节点
-    querySelectedItem(data, val) {
-      if (val == this.guid) return;
-      this.selecteds = valInDeep(data, val, this.nodeKey, this.props.children);
-    },
     // 处理默认选中数据
     chaeckDefaultValue() {
-      if (!this.selected) return;
+      let val = this.selected;
+      if (!val) return;
       if (this.checkbox) {
-        this.checked_keys = this.selected;
+        this.checked_keys = val;
         this.$nextTick(() => {
           this.selecteds = this.$refs["tree-select"].getCheckedNodes(true);
         });
       } else {
-        this.querySelectedItem(this.selfData, this.selected);
+        if(typeof val === 'object'){
+          this.selecteds = [val];
+          this.$nextTick(() => {
+            this.$refs["tree-select"].setCurrentNode(val);
+          });
+        }else{
+          this.$nextTick(() => {
+            this.$refs["tree-select"].setCurrentKey(val);
+            let _node = this.$refs["tree-select"].getCurrentNode();
+            this.selecteds = [_node];
+          });
+        }
       }
     }
   },
@@ -215,10 +227,20 @@ export default {
   }
 }
 
-.wl-options-tree .el-tree-node__content {
-  height: 34px;
-  line-height: 34px;
+.wl-treeselect-popover{
+  height: 360px;
+  >.el-scrollbar__wrap{
+    overflow-x: hidden;
+  }
 }
+
+.wl-options-tree {
+  .el-tree-node__content {
+    height: 34px;
+    line-height: 34px;
+  }
+}
+
 
 .fade-rotate-enter-active {
   animation: rotate 0.3s;

@@ -1,6 +1,6 @@
 {
   "name": "wl-vue-select",
-  "version": "0.2.3",
+  "version": "0.2.8",
   "author": "weilan<https://github.com/hql7>",
   "license": "MIT",
   "private": false,
@@ -9,8 +9,8 @@
     "url": "https://github.com/hql7/wl-vue-select/issues"
   },
   "homepage": "https://github.com/hql7/wl-vue-select/#readme",
-  "keyword": "select select-all el-select vue elementUi",
-  "description": "基于el-select的带全选功能的下拉框 El-select based select with full selection",
+  "keyword": "select tree-select 全选下拉框 树形下拉框 select-all el-select vue elementUi",
+  "description": "提供带全选快捷操作的下拉框和树形下拉框功能，基于el-select和el-tree实现 El-select based select with full selection",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
@@ -19,20 +19,20 @@
   },
   "dependencies": {
     "core-js": "^2.6.5",
-    "element-ui": "^2.4.5",
+    "element-ui": "^2.12.0",
     "vue": "^2.6.10",
-    "wl-vue-select": "^0.2.2"
+    "wl-vue-select": "^0.2.7"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.9.0",
-    "@vue/cli-plugin-eslint": "^3.9.0",
-    "@vue/cli-service": "^3.9.0",
-    "babel-eslint": "^10.0.1",
+    "@vue/cli-plugin-babel": "^3.12.0",
+    "@vue/cli-plugin-eslint": "^3.12.0",
+    "@vue/cli-service": "^3.12.0",
+    "babel-eslint": "^10.0.3",
     "babel-plugin-component": "^1.1.1",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
     "node-sass": "^4.12.0",
-    "sass-loader": "^7.2.0",
+    "sass-loader": "^7.3.1",
     "vue-cli-plugin-element": "^1.0.1",
     "vue-template-compiler": "^2.6.10"
   },

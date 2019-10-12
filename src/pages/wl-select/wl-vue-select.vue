@@ -120,7 +120,7 @@ export default {
   },
   methods: {
     selectChange(val) {
-      if (!this.multiple || val.length === 0) {
+      if (!this.multiple || val.length === 0 || this.showTotal >= this.selfData.length) {
         this.$emit("change", val);
         return;
       }

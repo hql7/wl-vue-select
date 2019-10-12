@@ -10,7 +10,7 @@
     ></wlVueSelect>
     <p>----------分割线------------</p>
     <wlTreeSelect
-      checkbox
+      leaf
       width="240"
       :data="treeData"
       :selected="selected"
@@ -21,6 +21,7 @@
 <script>
 // import wlVueSelect from "./components/wl-vue-select.vue";
 // import wlTreeSelect from "./components/wl-tree-select.vue";
+// import wlTreeSelect from "./pages/wl-tree/wl-tree-select.vue";
 
 export default {
   name: "app",
@@ -56,7 +57,13 @@ export default {
           children: [
             {
               id: 1,
-              name: "海边"
+              name: "海边",
+              children: [
+                {
+                  id: 5,
+                  name: "蓬莱",
+                }
+              ]
             },
             {
               id: 2,
@@ -73,12 +80,12 @@ export default {
           ]
         }
       ],
-      selected: ["1"] // 树下拉框选中数据
+      selected: "1" // 树下拉框选中数据
     };
   },
   components: {
     // wlVueSelect,
-    // treeSelect
+    // wlTreeSelect
   }
 };
 </script>
