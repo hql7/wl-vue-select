@@ -2,7 +2,7 @@
 <template>
   <div class="wl-tree-select" :style="{ width: width + 'px' }">
     <!-- 选中框区 -->
-    <el-popover placement="bottom" trigger="manual" :width="width" v-model="options_show">
+    <el-popover placement="bottom" :trigger="trigger" :width="width" v-model="options_show">
       <el-scrollbar class="wl-treeselect-popover">
       <el-tree
         ref="tree-select"
@@ -21,7 +21,7 @@
       </el-tree>
       </el-scrollbar>
       <!---->
-      <div slot="reference" class="selected-box" @click="options_show = !options_show">
+      <div slot="reference" class="selected-box" >
         <div class="tag-box">
           <el-tag
             size="medium"
@@ -29,7 +29,7 @@
             closable
             :key="item[nodeKey]"
             @close="tabClose(item[nodeKey])"
-          >
+            >
             {{ item[selfProps.label] }}
           </el-tag>
         </div>
@@ -88,7 +88,7 @@ export default {
       default: "id"
     },
     // 选中数据
-    selected: [String, Number, Array, Object],
+    value: [String, Number, Array, Object],
     // 是否可多选
     checkbox: {
       type: Boolean,
@@ -100,13 +100,23 @@ export default {
       default: false
     },
     // 宽度
-    width: String
+    width: String,
+    // 触发方式 click/focus/hover/manual
+    trigger:{
+      type: String,
+      default: 'click'
+    }
+  },
+  model: {
+    prop: "value", //这里使我们定义的v-model属性
+    event: "change"
   },
   methods: {
     // 树节点-checkbox选中
     handleCheckChange(val) {
-      let nodes = this.$refs["tree-select"].getCheckedNodes(true);
+      let nodes = this.$refs["tree-select"].getCheckedNodes(this.leaf);
       this.selecteds = nodes;
+      this.$emit("change", nodes);
     },
     // 树节点-点击选中
     treeItemClick(item, node) {
@@ -115,6 +125,7 @@ export default {
       }
       this.selecteds = [item];
       this.options_show = false;
+      this.$emit("change", this.selecteds);
     },
     // tag标签关闭
     tabClose(Id) {
@@ -125,6 +136,7 @@ export default {
       this.checkbox
         ? this.$refs["tree-select"].setChecked(Id, false)
         : this.$refs["tree-select"].setCurrentKey(null);
+      this.$emit("change", this.selecteds);
     },
     // 清空数据
     clear() {
@@ -132,8 +144,11 @@ export default {
     },
     // 处理默认选中数据
     chaeckDefaultValue() {
-      let val = this.selected;
-      if (!val) return;
+      let val = this.value;
+      if (!val){
+        this.selecteds = [];
+        return;
+      } 
       if (this.checkbox) {
         this.checked_keys = val;
         this.$nextTick(() => {
@@ -159,10 +174,7 @@ export default {
     this.chaeckDefaultValue();
   },
   watch: {
-    selecteds(val) {
-      this.$emit("selected", val);
-    },
-    selected(val) {
+    value(val) {
       this.chaeckDefaultValue();
     }
   },
@@ -235,6 +247,9 @@ export default {
 }
 
 .wl-options-tree {
+  display: inline-block !important;
+  min-width: 100%;
+
   .el-tree-node__content {
     height: 34px;
     line-height: 34px;

@@ -12,8 +12,10 @@
     <wlTreeSelect
       leaf
       width="240"
+      checkbox
       :data="treeData"
-      :selected="selected"
+      @change="hindleChanged"
+      v-model="selected"
     ></wlTreeSelect>
   </div>
 </template>
@@ -21,7 +23,7 @@
 <script>
 // import wlVueSelect from "./components/wl-vue-select.vue";
 // import wlTreeSelect from "./components/wl-tree-select.vue";
-// import wlTreeSelect from "./pages/wl-tree/wl-tree-select.vue";
+import wlTreeSelect from "./pages/wl-tree/wl-tree-select.vue";
 
 export default {
   name: "app",
@@ -80,12 +82,18 @@ export default {
           ]
         }
       ],
-      selected: "1" // 树下拉框选中数据
+      selected: [ "1" ]// 树下拉框选中数据
     };
+  },
+  methods: {
+    hindleChanged(val){
+      console.log(val,2)
+      console.log(this.selected)
+    }
   },
   components: {
     // wlVueSelect,
-    // wlTreeSelect
+    wlTreeSelect
   }
 };
 </script>
