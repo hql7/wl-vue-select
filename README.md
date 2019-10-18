@@ -70,12 +70,82 @@ Vue.use(wl);
     ></wlVueSelect>
     <p>----------分割线------------</p>
     <wlTreeSelect
-      checkbox
+      leaf
       width="240"
+      checkbox
       :data="treeData"
-      :selected="selected"
+      @change="hindleChanged"
+      v-model="selected"
     ></wlTreeSelect>
 ```
+
+``` jsvascript
+data() {
+    return {
+      value: [], // 选中值
+      data: [
+        {
+          id: 1,
+          name: "海边"
+        },
+        {
+          id: 2,
+          name: "森林"
+        },
+        {
+          id: 3,
+          name: "草原"
+        },
+        {
+          id: 4,
+          name: "古城"
+        }
+      ], // 数据
+      props: {
+        label: "name",
+        value: "id"
+      }, // 配置
+      treeData: [
+        {
+          id: "love",
+          name: "所有和你走过的风光",
+          children: [
+            {
+              id: 1,
+              name: "海边",
+              children: [
+                {
+                  id: 5,
+                  name: "蓬莱",
+                }
+              ]
+            },
+            {
+              id: 2,
+              name: "森林"
+            },
+            {
+              id: 3,
+              name: "草原"
+            },
+            {
+              id: 4,
+              name: "古城"
+            }
+          ]
+        }
+      ],
+      selected: [ "1" ]// 树下拉框选中数据
+    };
+  },
+  methods: {
+    hindleChanged(val){
+      console.log(val,2)
+      console.log(this.selected)
+    }
+  },
+```
+
 ## 文档
 
 | 序号 | 参数          | 说明                                                                                                 | 类型                | 可选值 | 默认值                             |
