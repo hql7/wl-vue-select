@@ -25,8 +25,10 @@
         <div class="tag-box">
           <el-tag
             size="medium"
-            v-for="item in selecteds"
+            class="wl-select-tag"
             closable
+            v-for="item in selecteds"
+            :title="item[selfProps.label]"
             :key="item[nodeKey]"
             @close="tabClose(item[nodeKey])"
             >
@@ -129,13 +131,16 @@ export default {
     },
     // tag标签关闭
     tabClose(Id) {
-      this.selecteds.splice(
-        this.selecteds.findIndex(item => item[this.nodeKey] === Id),
-        1
-      );
-      this.checkbox
-        ? this.$refs["tree-select"].setChecked(Id, false)
-        : this.$refs["tree-select"].setCurrentKey(null);
+      if(this.checkbox){
+        this.selecteds.splice(
+          this.selecteds.findIndex(item => item[this.nodeKey] === Id),
+          1
+        );
+        this.$refs["tree-select"].setChecked(Id, false)
+      }else{
+        this.selecteds = [];
+        this.$refs["tree-select"].setCurrentKey(null);
+      }
       this.$emit("change", this.selecteds);
     },
     // 清空数据
@@ -145,29 +150,33 @@ export default {
     // 处理默认选中数据
     chaeckDefaultValue() {
       let val = this.value;
-      if (!val){
+      
+      if (!val || (Array.isArray(val) && val.length === 0)){
         this.selecteds = [];
         return;
       } 
+      // 多选处理
       if (this.checkbox) {
         this.checked_keys = val;
         this.$nextTick(() => {
-          this.selecteds = this.$refs["tree-select"].getCheckedNodes(true);
+          this.selecteds = this.$refs["tree-select"].getCheckedNodes(this.leaf);
         });
-      } else {
+        return
+      } 
+      // 单选处理
         if(typeof val === 'object'){
-          this.selecteds = [val];
+          let _val = Array.isArray(val) ? val[0] : val
+          this.selecteds = [_val];
           this.$nextTick(() => {
-            this.$refs["tree-select"].setCurrentNode(val);
+            this.$refs["tree-select"].setCurrentNode(_val);
           });
         }else{
           this.$nextTick(() => {
             this.$refs["tree-select"].setCurrentKey(val);
             let _node = this.$refs["tree-select"].getCurrentNode();
-            this.selecteds = [_node];
+            this.selecteds = _node ? [_node] : [];
           });
         }
-      }
     }
   },
   created() {
@@ -234,7 +243,16 @@ export default {
     }
   }
 
-  .el-tag + .el-tag {
+  .wl-select-tag{
+    max-width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    word-wrap: break-word;
+    word-break: break-all;
+    vertical-align: middle;
+  }
+
+  .wl-select-tag + .wl-select-tag {
     margin-left: 4px;
   }
 }

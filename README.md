@@ -156,13 +156,20 @@ data() {
 | 4    | defaultSelect | 是否启用默认选中,如果开启`全部`时选中全部，无全部时选中第一个。(开启此功能请不要给 v-model 赋初始值) | Boolean             | -      | false                              |
 | 5    | 其他          | [其他 el-select 提供的参数](https://element.eleme.cn/#/zh-CN/component/select)                       | -                   | -      | -                                  |
 | 6    | nodeKey       | 使用树形下拉框时，必须使用 key 来解析数据                                                            | String              | -      | id                                 |
-| 7    | selected      | 使用树形下拉框时，绑定选中数据,未开启checkbox时不可使用Array类型                                                                   | String-Number-Array-Object | -      | -                                  |
+| 7    | selected[废弃]      | 使用树形下拉框时，绑定选中数据【现改为v-model 】                                                                  | String-Number-Array-Object | -      | -                                  |
 | 8    | checkbox      | 使用树形下拉框时,是否开启多选                                                                        | Boolean             | -      | false                              |
 | 9    | width         | 使用树形下拉框时宽度,默认单位 px                                                                     | String-Number       | -      | 240                                |
 | 10 | leaf | 树形下拉框时，是否只可选叶子节点 | Boolean | - | false |
 | 11 | trigger | 树形下拉框时，触发方式 | String | click/focus/hover/manual | click |
+| 12 | v-model | 普通及树形下拉框绑定值，用法与普通表单元素相同 | String-Number-Array-Object | - | - |
 
 ## 版本记录
+
+> 0.3.7 修改树形下拉框单选时默然选中是否只选子节点根据leaf字段
+
+> 0.3.5 修复树形下拉框单选时的默认选择的缺陷【绑定值为数组时】
+
+> 0.3.4 修复树形下拉框el-tree默认选中字段为空，getNodes方法还能获取到上次值的问题，更新rademe示例
 
 > 0.3.3 修复树形下拉框开启多选时无限循环的问题，优化多选时根据`leaf`字段来确定是否只返回叶子节点
 
