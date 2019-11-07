@@ -153,11 +153,17 @@ export default {
       
       if (!val || (Array.isArray(val) && val.length === 0)){
         this.selecteds = [];
+        if(!this.checkbox) return;
+        this.checked_keys = [];
+        this.$nextTick(() => {
+          this.$refs["tree-select"].setCheckedKeys([]);
+        });
         return;
       } 
       // 多选处理
       if (this.checkbox) {
-        this.checked_keys = val;
+        this.checked_keys = typeof val[0] === 'object' 
+          ? val.map(i => i[this.nodeKey]) : val;
         this.$nextTick(() => {
           this.selecteds = this.$refs["tree-select"].getCheckedNodes(this.leaf);
         });
