@@ -162,8 +162,11 @@ data() {
 | 10 | leaf | 树形下拉框时，是否只可选叶子节点 | Boolean | - | false |
 | 11 | trigger | 树形下拉框时，触发方式 | String | click/focus/hover/manual | click |
 | 12 | v-model | 普通及树形下拉框绑定值，用法与普通表单元素相同 | String-Number-Array-Object | - | - |
+| 13 | disabled | 是否禁用下拉框 | Boolean | - | false |
 
 ## 版本记录
+
+> 0.4.1 优化树形下拉框，增加禁用字段
 
 > 0.3.9 优化树形下拉框默认传进来的选中数据为复杂型数组时，提取id；
 

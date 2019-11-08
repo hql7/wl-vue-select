@@ -2,7 +2,7 @@
 <template>
   <div class="wl-tree-select" :style="{ width: width + 'px' }">
     <!-- 选中框区 -->
-    <el-popover placement="bottom" :trigger="trigger" :width="width" v-model="options_show">
+    <el-popover placement="bottom" :trigger="trigger" :disabled="disabled" :width="width" v-model="options_show">
       <el-scrollbar class="wl-treeselect-popover">
       <el-tree
         ref="tree-select"
@@ -21,7 +21,7 @@
       </el-tree>
       </el-scrollbar>
       <!---->
-      <div slot="reference" class="selected-box" >
+      <div slot="reference" class="selected-box" :class="{'wl-disabled': disabled}">
         <div class="tag-box">
           <el-tag
             size="medium"
@@ -107,7 +107,12 @@ export default {
     trigger:{
       type: String,
       default: 'click'
-    }
+    },
+    // 是否禁用
+    disabled:{
+      type: Boolean,
+      default: false
+    },
   },
   model: {
     prop: "value", //这里使我们定义的v-model属性
@@ -131,6 +136,7 @@ export default {
     },
     // tag标签关闭
     tabClose(Id) {
+      if(this.disabled) return;
       if(this.checkbox){
         this.selecteds.splice(
           this.selecteds.findIndex(item => item[this.nodeKey] === Id),
@@ -248,6 +254,17 @@ export default {
       color: #c0c4cc;
     }
   }
+
+  .wl-disabled{
+      background: #eee;
+      cursor: no-drop;
+      &:focus{
+        border-color: #dcdfe6;
+      } 
+      .el-tag__close{
+        cursor: no-drop;
+      }
+    }
 
   .wl-select-tag{
     max-width: 100%;
