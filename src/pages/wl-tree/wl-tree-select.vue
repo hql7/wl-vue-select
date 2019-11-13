@@ -21,7 +21,7 @@
       </el-tree>
       </el-scrollbar>
       <!---->
-      <div slot="reference" class="selected-box" :class="{'wl-disabled': disabled}">
+      <div slot="reference" class="selected-box" :class="{'wl-disabled': disabled, 'no-wrap': nowrap}">
         <div class="tag-box">
           <el-tag
             size="medium"
@@ -113,6 +113,11 @@ export default {
       type: Boolean,
       default: false
     },
+    // 是否允许多行显示
+    nowrap: {
+      type: Boolean,
+      default: false
+    }
   },
   model: {
     prop: "value", //这里使我们定义的v-model属性
@@ -253,6 +258,13 @@ export default {
       align-items: Center;
       color: #c0c4cc;
     }
+  }
+
+  .no-wrap {
+    height: 36px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .wl-disabled{

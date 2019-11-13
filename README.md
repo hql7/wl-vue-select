@@ -163,8 +163,11 @@ data() {
 | 11 | trigger | 树形下拉框时，触发方式 | String | click/focus/hover/manual | click |
 | 12 | v-model | 普通及树形下拉框绑定值，用法与普通表单元素相同 | String-Number-Array-Object | - | - |
 | 13 | disabled | 是否禁用下拉框 | Boolean | - | false |
+| 14 | nowrap | 是否不允许多行显示，true则只显示一行 | Boolean | - | false |
 
 ## 版本记录
+
+> 0.4.2 优化树形下拉框，增加是否不允许多行显示字段
 
 > 0.4.1 优化树形下拉框，增加禁用字段
 
