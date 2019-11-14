@@ -2,26 +2,35 @@
 <template>
   <div class="wl-tree-select" :style="{ width: width + 'px' }">
     <!-- 选中框区 -->
-    <el-popover placement="bottom" :trigger="trigger" :disabled="disabled" :width="width" v-model="options_show">
+    <el-popover
+      placement="bottom"
+      :trigger="trigger"
+      :disabled="disabled"
+      :width="width"
+      v-model="options_show"
+    >
       <el-scrollbar class="wl-treeselect-popover">
-      <el-tree
-        ref="tree-select"
-        class="wl-options-tree"
-        highlight-current
-        default-expand-all
-        :data="selfData"
-        :props="selfProps"
-        :node-key="nodeKey"
-        :show-checkbox="checkbox"
-        :expand-on-click-node="false"
-        :default-checked-keys="checked_keys"
-        @check-change="handleCheckChange"
-        @node-click="treeItemClick"
-      >
-      </el-tree>
+        <el-tree
+          ref="tree-select"
+          class="wl-options-tree"
+          highlight-current
+          default-expand-all
+          :data="selfData"
+          :props="selfProps"
+          :node-key="nodeKey"
+          :show-checkbox="checkbox"
+          :expand-on-click-node="false"
+          :default-checked-keys="checked_keys"
+          @check-change="handleCheckChange"
+          @node-click="treeItemClick"
+        ></el-tree>
       </el-scrollbar>
       <!---->
-      <div slot="reference" class="selected-box" :class="{'wl-disabled': disabled, 'no-wrap': nowrap}">
+      <div
+        slot="reference"
+        class="selected-box"
+        :class="{'wl-disabled': disabled, 'no-wrap': nowrap}"
+      >
         <div class="tag-box">
           <el-tag
             size="medium"
@@ -31,9 +40,7 @@
             :title="item[selfProps.label]"
             :key="item[nodeKey]"
             @close="tabClose(item[nodeKey])"
-            >
-            {{ item[selfProps.label] }}
-          </el-tag>
+          >{{ item[selfProps.label] }}</el-tag>
         </div>
         <div class="icon-box">
           <transition name="fade-rotate" mode="out-in">
@@ -104,12 +111,12 @@ export default {
     // 宽度
     width: String,
     // 触发方式 click/focus/hover/manual
-    trigger:{
+    trigger: {
       type: String,
-      default: 'click'
+      default: "click"
     },
     // 是否禁用
-    disabled:{
+    disabled: {
       type: Boolean,
       default: false
     },
@@ -141,14 +148,14 @@ export default {
     },
     // tag标签关闭
     tabClose(Id) {
-      if(this.disabled) return;
-      if(this.checkbox){
+      if (this.disabled) return;
+      if (this.checkbox) {
         this.selecteds.splice(
           this.selecteds.findIndex(item => item[this.nodeKey] === Id),
           1
         );
-        this.$refs["tree-select"].setChecked(Id, false)
-      }else{
+        this.$refs["tree-select"].setChecked(Id, false);
+      } else {
         this.selecteds = [];
         this.$refs["tree-select"].setCurrentKey(null);
       }
@@ -161,39 +168,39 @@ export default {
     // 处理默认选中数据
     chaeckDefaultValue() {
       let val = this.value;
-      
-      if (!val || (Array.isArray(val) && val.length === 0)){
+
+      if (!val || (Array.isArray(val) && val.length === 0)) {
         this.selecteds = [];
-        if(!this.checkbox) return;
+        if (!this.checkbox) return;
         this.checked_keys = [];
         this.$nextTick(() => {
           this.$refs["tree-select"].setCheckedKeys([]);
         });
         return;
-      } 
+      }
       // 多选处理
       if (this.checkbox) {
-        this.checked_keys = typeof val[0] === 'object' 
-          ? val.map(i => i[this.nodeKey]) : val;
+        this.checked_keys =
+          typeof val[0] === "object" ? val.map(i => i[this.nodeKey]) : val;
         this.$nextTick(() => {
           this.selecteds = this.$refs["tree-select"].getCheckedNodes(this.leaf);
         });
-        return
-      } 
+        return;
+      }
       // 单选处理
-        if(typeof val === 'object'){
-          let _val = Array.isArray(val) ? val[0] : val
-          this.selecteds = [_val];
-          this.$nextTick(() => {
-            this.$refs["tree-select"].setCurrentNode(_val);
-          });
-        }else{
-          this.$nextTick(() => {
-            this.$refs["tree-select"].setCurrentKey(val);
-            let _node = this.$refs["tree-select"].getCurrentNode();
-            this.selecteds = _node ? [_node] : [];
-          });
-        }
+      if (typeof val === "object") {
+        let _val = Array.isArray(val) ? val[0] : val;
+        this.selecteds = [_val];
+        this.$nextTick(() => {
+          this.$refs["tree-select"].setCurrentNode(_val);
+        });
+      } else {
+        this.$nextTick(() => {
+          this.$refs["tree-select"].setCurrentKey(val);
+          let _node = this.$refs["tree-select"].getCurrentNode();
+          this.selecteds = _node ? [_node] : [];
+        });
+      }
     }
   },
   created() {
@@ -262,23 +269,25 @@ export default {
 
   .no-wrap {
     height: 36px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    > .tag-box {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
   }
 
-  .wl-disabled{
-      background: #eee;
-      cursor: no-drop;
-      &:focus{
-        border-color: #dcdfe6;
-      } 
-      .el-tag__close{
-        cursor: no-drop;
-      }
+  .wl-disabled {
+    background: #eee;
+    cursor: no-drop;
+    &:focus {
+      border-color: #dcdfe6;
     }
+    .el-tag__close {
+      cursor: no-drop;
+    }
+  }
 
-  .wl-select-tag{
+  .wl-select-tag {
     max-width: 100%;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -292,9 +301,9 @@ export default {
   }
 }
 
-.wl-treeselect-popover{
+.wl-treeselect-popover {
   height: 360px;
-  >.el-scrollbar__wrap{
+  > .el-scrollbar__wrap {
     overflow-x: hidden;
   }
 }
@@ -308,7 +317,6 @@ export default {
     line-height: 34px;
   }
 }
-
 
 .fade-rotate-enter-active {
   animation: rotate 0.3s;
