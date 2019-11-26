@@ -234,6 +234,7 @@ export default {
   position: relative;
   display: inline-block;
   width: 240px;
+  vertical-align: middle;
   outline: none;
 
   .selected-box {
