@@ -24,6 +24,7 @@
 // import wlVueSelect from "./components/wl-vue-select.vue";
 // import wlTreeSelect from "./components/wl-tree-select.vue";
 import wlTreeSelect from "./pages/wl-tree/wl-tree-select.vue";
+import wlVueSelect from "./pages/wl-select/wl-vue-select.vue";
 
 export default {
   name: "app",
@@ -92,7 +93,7 @@ export default {
     }
   },
   components: {
-    // wlVueSelect,
+    wlVueSelect,
     wlTreeSelect
   }
 };
