@@ -1,52 +1,19 @@
 # wl-vue-select
 
-## Project setup
-
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-
-```
-npm run build
-```
-
-### Run your tests
-
-```
-npm run test
-```
-
-### Lints and fixes files
-
-```
-npm run lint
-```
-
-### Customize configuration
-
-See [Configuration Reference](https://cli.vuejs.org/config/).
-
 #简介
-
-本组件提供全选下拉框和树形下拉框功能。
-`wlVueSelect`这是一个基于 elementUi 的 el-select 组件的二次封装的下拉框，提供了全选功能和默认选中功能；
-`wlTreeSelect`这是一个基于 elementUi 的 el-tree 组件的二次封装的下拉框，提供了树形数据支持和默认选中功能；
-因这两个需求非常普遍，所以作为一个独立插件发布。
+用于vue框架的树形下拉框及带全选的普通下拉框。   
+Tree drop-down box for vue framework and ordinary drop-down box with select all.   
+本组件提供全选下拉框和树形下拉框功能。    
+`wlVueSelect`这是一个基于 elementUi 的 el-select 组件的二次封装的下拉框，提供了全选功能和默认选中功能；   
+`wlTreeSelect`这是一个基于 elementUi 的 el-tree 组件的二次封装的下拉框，提供了树形数据支持和默认选中功能；    
+因这两个需求非常普遍，所以作为一个独立插件发布。    
 [el-select](https://element.eleme.cn/#/zh-CN/component/select)
 
 ## [在线访问](https://hql7.github.io/)
 
 ## 快速上手
 
-`npm i wl-vue-select --save`
+`npm i wl-tree-select --save`
 
 或
 
@@ -164,8 +131,11 @@ data() {
 | 12 | v-model | 普通及树形下拉框绑定值，用法与普通表单元素相同 | String-Number-Array-Object | - | - |
 | 13 | disabled | 是否禁用下拉框 | Boolean | - | false |
 | 14 | nowrap | 是否不允许多行显示，true则只显示一行 | Boolean | - | false |
+| 15 | noCheckedClose | 多选时，是否全部取消选中时，自动关闭选项区域 | Boolean | - | false |
 
 ## 版本记录
+
+> 0.4.5 优化树形下拉框placeholder，增加参数管理全部取消选中时收起选项
 
 > 0.4.2 优化树形下拉框，增加是否不允许多行显示字段
 

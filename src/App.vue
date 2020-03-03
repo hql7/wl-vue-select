@@ -7,12 +7,13 @@
       :data="data"
       multiple
       default-select
+      noCheckedClose
     ></wlVueSelect>
     <p>----------分割线------------</p>
     <wlTreeSelect
-      leaf
       width="240"
       checkbox
+      noCheckedClose
       :data="treeData"
       @change="hindleChanged"
       v-model="selected"
@@ -21,8 +22,6 @@
 </template>
 
 <script>
-// import wlVueSelect from "./components/wl-vue-select.vue";
-// import wlTreeSelect from "./components/wl-tree-select.vue";
 import wlTreeSelect from "./pages/wl-tree/wl-tree-select.vue";
 import wlVueSelect from "./pages/wl-select/wl-vue-select.vue";
 
@@ -65,12 +64,17 @@ export default {
                 {
                   id: 5,
                   name: "蓬莱",
+                },
+                {
+                  id: 6,
+                  name: "威海",
                 }
               ]
             },
             {
               id: 2,
-              name: "森林"
+              name: "森林",
+              children: []
             },
             {
               id: 3,
@@ -88,8 +92,8 @@ export default {
   },
   methods: {
     hindleChanged(val){
-      console.log(val,2)
-      console.log(this.selected)
+      // console.log(val,2)
+      // console.log(this.selected)
     }
   },
   components: {

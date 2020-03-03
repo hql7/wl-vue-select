@@ -21,7 +21,7 @@
           :show-checkbox="checkbox"
           :expand-on-click-node="false"
           :default-checked-keys="checked_keys"
-          @check-change="handleCheckChange"
+          @check="handleCheckChange"
           @node-click="treeItemClick"
         ></el-tree>
       </el-scrollbar>
@@ -32,15 +32,18 @@
         :class="{'wl-disabled': disabled, 'no-wrap': nowrap}"
       >
         <div class="tag-box">
-          <el-tag
-            size="medium"
-            class="wl-select-tag"
-            closable
-            v-for="item in selecteds"
-            :title="item[selfProps.label]"
-            :key="item[nodeKey]"
-            @close="tabClose(item[nodeKey])"
-          >{{ item[selfProps.label] }}</el-tag>
+          <div v-show="selecteds.length > 0">
+            <el-tag
+              size="medium"
+              class="wl-select-tag"
+              closable
+              v-for="item in selecteds"
+              :title="item[selfProps.label]"
+              :key="item[nodeKey]"
+              @close="tabClose(item[nodeKey])"
+            >{{ item[selfProps.label] }}</el-tag>
+          </div>
+          <p class="wl-placeholder-box" v-show="selecteds.length == 0">{{placeholder}}</p>
         </div>
         <div class="icon-box">
           <transition name="fade-rotate" mode="out-in">
@@ -124,6 +127,15 @@ export default {
     nowrap: {
       type: Boolean,
       default: false
+    },
+    // 多选时，清空选项关闭
+    noCheckedClose: {
+      type: Boolean,
+      default: false
+    },
+    placeholder: {
+      type: String,
+      default: "请选择"
     }
   },
   model: {
@@ -132,10 +144,24 @@ export default {
   },
   methods: {
     // 树节点-checkbox选中
-    handleCheckChange(val) {
+    handleCheckChange(val, { checkedNodes, checkedKeys }) {
+      /* let nodes = [];
+      if (this.leaf) {
+        nodes = this.$refs["tree-select"].getCheckedNodes(this.leaf);
+      } else {
+        checkedNodes.forEach(i => {
+          let parent_node =
+            Array.isArray(i[this.selfProps.children]) &&
+            i[this.selfProps.children].length > 0;
+          nodes.push();
+        });
+      }
+      */
       let nodes = this.$refs["tree-select"].getCheckedNodes(this.leaf);
       this.selecteds = nodes;
       this.$emit("change", nodes);
+      if (checkedKeys.length === 0 && this.noCheckedClose)
+        this.options_show = false;
     },
     // 树节点-点击选中
     treeItemClick(item, node) {
@@ -155,9 +181,12 @@ export default {
           1
         );
         this.$refs["tree-select"].setChecked(Id, false);
+        if (this.selecteds.length === 0 && this.noCheckedClose)
+          this.options_show = false;
       } else {
         this.selecteds = [];
         this.$refs["tree-select"].setCurrentKey(null);
+        this.options_show = false;
       }
       this.$emit("change", this.selecteds);
     },
@@ -317,6 +346,11 @@ export default {
     height: 34px;
     line-height: 34px;
   }
+}
+
+.wl-placeholder-box {
+  color: #c0c4cc;
+  margin: 0;
 }
 
 .fade-rotate-enter-active {

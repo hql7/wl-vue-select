@@ -1,5 +1,6 @@
 <template>
   <el-select
+    ref="wl-vue-select"
     :value="value"
     :size="size"
     :multiple="multiple"
@@ -27,8 +28,7 @@
       :key="item[selfProps.value]"
       :label="item[selfProps.label]"
       :value="valueKey ? item : item[selfProps.value]"
-    >
-    </el-option>
+    ></el-option>
   </el-select>
 </template>
 
@@ -116,12 +116,23 @@ export default {
       // 是否允许用户创建新条目，需配合 filterable 使用
       type: Boolean,
       default: false
-    }
+    },
+    // 多选时，清空选项关闭
+    noCheckedClose: {
+      type: Boolean,
+      default: false
+    },
   },
   methods: {
     selectChange(val) {
-      if (!this.multiple || val.length === 0 || this.showTotal >= this.selfData.length) {
+      if (
+        !this.multiple ||
+        val.length === 0 ||
+        this.showTotal >= this.selfData.length
+      ) {
         this.$emit("change", val);
+        if (val.length == 0 && this.noCheckedClose)
+          this.$refs["wl-vue-select"].blur();
         return;
       }
       // 处理多选的全选效果

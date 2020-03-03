@@ -1,6 +1,6 @@
 {
   "name": "wl-vue-select",
-  "version": "0.4.4",
+  "version": "0.4.5",
   "author": "weilan<https://github.com/hql7>",
   "license": "MIT",
   "private": false,
@@ -9,7 +9,7 @@
     "url": "https://github.com/hql7/wl-vue-select/issues"
   },
   "homepage": "https://github.com/hql7/wl-vue-select/#readme",
-  "keyword": "select tree-select 全选下拉框 树形下拉框 select-all el-select vue elementUi",
+  "keywords": "select tree-select 全选下拉框 树形下拉框 select-all el-select vue elementUi",
   "description": "提供带全选快捷操作的下拉框和树形下拉框功能，基于el-select和el-tree实现 El-select based select with full selection",
   "scripts": {
     "serve": "vue-cli-service serve",
