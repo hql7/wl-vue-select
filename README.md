@@ -132,8 +132,11 @@ data() {
 | 13 | disabled | 是否禁用下拉框 | Boolean | - | false |
 | 14 | nowrap | 是否不允许多行显示，true则只显示一行 | Boolean | - | false |
 | 15 | noCheckedClose | 多选时，是否全部取消选中时，自动关闭选项区域 | Boolean | - | false |
+| 16 | size | 尺寸，用法同elementui | String | - | medium |
 
 ## 版本记录
+
+> 0.4.6 优化树形下拉框，使size属性生效
 
 > 0.4.5 优化树形下拉框placeholder，增加参数管理全部取消选中时收起选项
 

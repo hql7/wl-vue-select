@@ -13,6 +13,7 @@
     <wlTreeSelect
       width="240"
       checkbox
+      size="small"
       noCheckedClose
       :data="treeData"
       @change="hindleChanged"

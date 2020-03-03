@@ -29,14 +29,14 @@
       <div
         slot="reference"
         class="selected-box"
-        :class="{'wl-disabled': disabled, 'no-wrap': nowrap}"
+        :class="[{'wl-disabled': disabled, 'no-wrap': nowrap }, sizeClass]"
       >
         <div class="tag-box">
           <div v-show="selecteds.length > 0">
             <el-tag
-              size="medium"
-              class="wl-select-tag"
               closable
+              :size="size"
+              class="wl-select-tag"
               v-for="item in selecteds"
               :title="item[selfProps.label]"
               :key="item[nodeKey]"
@@ -136,6 +136,10 @@ export default {
     placeholder: {
       type: String,
       default: "请选择"
+    },
+    size: {
+      type: String,
+      default: 'medium'
     }
   },
   model: {
@@ -253,6 +257,27 @@ export default {
         },
         ...this.props
       };
+    },
+    sizeClass(){
+      let size_class = "size-medium";
+      switch (this.size) {
+        case 'medium':
+          size_class = "size-medium"
+          break;
+        case 'small':
+          size_class = "size-small"
+          break;
+        case 'default':
+          size_class = "size-default"
+          break;
+        case 'mini':
+          size_class = "size-mini"
+          break;
+        default:
+          size_class = "size-medium"
+          break;
+      }
+      return size_class
     }
   }
 };
@@ -295,6 +320,19 @@ export default {
       align-items: Center;
       color: #c0c4cc;
     }
+  }
+
+  .selected-box.size-small {
+    min-height: 32px;
+    line-height: 30px;
+  }
+  .selected-box.size-mini {
+    min-height: 28px;
+    line-height: 26px;
+  }
+  .selected-box.size-default {
+    min-height: 40px;
+    line-height: 38px;
   }
 
   .no-wrap {
