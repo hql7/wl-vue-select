@@ -1,6 +1,6 @@
 # wl-vue-select
 
-#简介
+# 简介
 用于vue框架的树形下拉框及带全选的普通下拉框。   
 Tree drop-down box for vue framework and ordinary drop-down box with select all.   
 本组件提供全选下拉框和树形下拉框功能。    
