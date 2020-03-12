@@ -6,6 +6,7 @@
       :props="props"
       :data="data"
       multiple
+      collapse-tags
       default-select
       noCheckedClose
     ></wlVueSelect>
@@ -15,6 +16,7 @@
       checkbox
       size="small"
       noCheckedClose
+      collapse-tags
       :data="treeData"
       @change="hindleChanged"
       v-model="selected"
@@ -64,11 +66,11 @@ export default {
               children: [
                 {
                   id: 5,
-                  name: "蓬莱",
+                  name: "蓬莱"
                 },
                 {
                   id: 6,
-                  name: "威海",
+                  name: "威海"
                 }
               ]
             },
@@ -88,11 +90,11 @@ export default {
           ]
         }
       ],
-      selected: [ "1" ]// 树下拉框选中数据
+      selected: ["2", "3"] // 树下拉框选中数据
     };
   },
   methods: {
-    hindleChanged(val){
+    hindleChanged(val) {
       // console.log(val,2)
       // console.log(this.selected)
     }

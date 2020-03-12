@@ -33,15 +33,31 @@
       >
         <div class="tag-box">
           <div v-show="selecteds.length > 0">
-            <el-tag
-              closable
-              :size="size"
-              class="wl-select-tag"
-              v-for="item in selecteds"
-              :title="item[selfProps.label]"
-              :key="item[nodeKey]"
-              @close="tabClose(item[nodeKey])"
-            >{{ item[selfProps.label] }}</el-tag>
+            <template v-if="!collapseTags">
+              <el-tag
+                closable
+                :size="size"
+                class="wl-select-tag"
+                v-for="item in selecteds"
+                :title="item[selfProps.label]"
+                :key="item[nodeKey]"
+                @close="tabClose(item[nodeKey])"
+              >{{ item[selfProps.label] }}</el-tag>
+            </template>
+            <template v-else>
+              <el-tag
+                closable
+                :size="size"
+                class="wl-select-tag"
+                :title="collapseTagsItem[selfProps.label]"
+                @close="tabClose(collapseTagsItem[nodeKey])"
+              >{{ collapseTagsItem[selfProps.label] }}</el-tag>
+              <el-tag
+                v-if="this.selecteds.length>1"
+                :size="size"
+                class="wl-select-tag"
+              >+{{ this.selecteds.length-1}}</el-tag>
+            </template>
           </div>
           <p class="wl-placeholder-box" v-show="selecteds.length == 0">{{placeholder}}</p>
         </div>
@@ -106,6 +122,11 @@ export default {
       type: Boolean,
       default: false
     },
+    // 多选时是否将选中值按文字的形式展示
+    collapseTags: {
+      type: Boolean,
+      default: false
+    },
     // 是否只可选叶子节点
     leaf: {
       type: Boolean,
@@ -139,7 +160,7 @@ export default {
     },
     size: {
       type: String,
-      default: 'medium'
+      default: "medium"
     }
   },
   model: {
@@ -258,26 +279,30 @@ export default {
         ...this.props
       };
     },
-    sizeClass(){
+    sizeClass() {
       let size_class = "size-medium";
       switch (this.size) {
-        case 'medium':
-          size_class = "size-medium"
+        case "medium":
+          size_class = "size-medium";
           break;
-        case 'small':
-          size_class = "size-small"
+        case "small":
+          size_class = "size-small";
           break;
-        case 'default':
-          size_class = "size-default"
+        case "default":
+          size_class = "size-default";
           break;
-        case 'mini':
-          size_class = "size-mini"
+        case "mini":
+          size_class = "size-mini";
           break;
         default:
-          size_class = "size-medium"
+          size_class = "size-medium";
           break;
       }
-      return size_class
+      return size_class;
+    },
+    // 开启collapseTags时首个选中值
+    collapseTagsItem() {
+      return this.selecteds[0] || {};
     }
   }
 };

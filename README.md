@@ -136,6 +136,8 @@ data() {
 
 ## 版本记录
 
+> 0.4.7 优化树形下拉框，支持[el-select](https://element.eleme.cn/#/zh-CN/component/select)的collapse-tags
+
 > 0.4.6 优化树形下拉框，使size属性生效
 
 > 0.4.5 优化树形下拉框placeholder，增加参数管理全部取消选中时收起选项
