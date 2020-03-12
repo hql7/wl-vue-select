@@ -16,6 +16,7 @@
       checkbox
       size="small"
       noCheckedClose
+      node-key="id"
       collapse-tags
       :data="treeData"
       @change="hindleChanged"
@@ -90,7 +91,7 @@ export default {
           ]
         }
       ],
-      selected: ["2", "3"] // 树下拉框选中数据
+      selected: ["1"] // 树下拉框选中数据
     };
   },
   methods: {

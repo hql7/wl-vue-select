@@ -11,6 +11,9 @@ Tree drop-down box for vue framework and ordinary drop-down box with select all.
 
 ## [在线访问](https://hql7.github.io/)
 
+### 主要发布记录
+> 0.4.8 修复树形下拉框，子节点全部选中时，父节点无法取消的问题
+
 ## 快速上手
 
 `npm i wl-tree-select --save`
@@ -135,6 +138,8 @@ data() {
 | 16 | size | 尺寸，用法同elementui | String | - | medium |
 
 ## 版本记录
+
+> 0.4.8 修复树形下拉框，子节点全部选中时，父节点无法取消的问题
 
 > 0.4.7 优化树形下拉框，支持[el-select](https://element.eleme.cn/#/zh-CN/component/select)的collapse-tags
 

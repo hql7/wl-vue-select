@@ -201,11 +201,8 @@ export default {
     tabClose(Id) {
       if (this.disabled) return;
       if (this.checkbox) {
-        this.selecteds.splice(
-          this.selecteds.findIndex(item => item[this.nodeKey] === Id),
-          1
-        );
-        this.$refs["tree-select"].setChecked(Id, false);
+        this.$refs["tree-select"].setChecked(Id, false, true);
+        this.selecteds = this.$refs["tree-select"].getCheckedNodes()
         if (this.selecteds.length === 0 && this.noCheckedClose)
           this.options_show = false;
       } else {
