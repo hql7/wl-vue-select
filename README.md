@@ -1,4 +1,4 @@
-# wl-vue-select
+# wl-vue-select，wl-tree-select
 
 # 简介
 用于vue框架的树形下拉框及带全选的普通下拉框。   
