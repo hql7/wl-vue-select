@@ -12,6 +12,7 @@
     ></wlVueSelect>
     <p>----------分割线------------</p>
     <wlTreeSelect
+      ref="wl-tree-select"
       width="240"
       checkbox
       size="small"
@@ -22,6 +23,9 @@
       @change="hindleChanged"
       v-model="selected"
     ></wlTreeSelect>
+    <div class="btn">
+      <el-button size="small">关闭treeSelect下拉框</el-button>
+    </div>
   </div>
 </template>
 
@@ -98,6 +102,10 @@ export default {
     hindleChanged(val) {
       // console.log(val,2)
       // console.log(this.selected)
+    },
+    // 手动关闭树形下拉框选项
+    closeSelect() {
+      this.$refs["wl-tree-select"].closeOptions();
     }
   },
   components: {
@@ -115,5 +123,9 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+.btn {
+  margin-top: 60px;
+  text-align: right;
 }
 </style>

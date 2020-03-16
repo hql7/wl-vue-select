@@ -137,7 +137,14 @@ data() {
 | 15 | noCheckedClose | 多选时，是否全部取消选中时，自动关闭选项区域 | Boolean | - | false |
 | 16 | size | 尺寸，用法同elementui | String | - | medium |
 
+## Methods 方法
+| 序号 | name | 说明 | 参数 |
+| ---- | ---- | ---- | ---- |
+| 1 | closeOptions | 关闭树形下拉框的选项区 | - |
+
 ## 版本记录
+
+> 0.4.9 增加关闭树形下拉框的选项区closeOptions方法
 
 > 0.4.8 修复树形下拉框，子节点全部选中时，父节点无法取消的问题
 

@@ -252,6 +252,10 @@ export default {
           this.selecteds = _node ? [_node] : [];
         });
       }
+    },
+    // 关闭
+    closeOptions(){
+      this.options_show = false;
     }
   },
   created() {
