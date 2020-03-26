@@ -21,7 +21,7 @@
     "core-js": "^2.6.5",
     "element-ui": "^2.12.0",
     "vue": "^2.6.10",
-    "wl-vue-select": "^0.2.7"
+    "wl-vue-select": "^0.4.9"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.12.0",

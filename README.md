@@ -16,7 +16,7 @@ Tree drop-down box for vue framework and ordinary drop-down box with select all.
 
 ## 快速上手
 
-`npm i wl-tree-select --save`
+`npm i wl-vue-select --save`
 
 或
 
