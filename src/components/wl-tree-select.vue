@@ -7,8 +7,8 @@
         ref="tree-select"
         class="wl-options-tree"
         highlight-current
-        :default-expand-all="isExpand"
-        :default-expanded-keys="expandedKeys"
+        :default-expand-all="defaultExpandAll"
+        :default-expanded-keys="defaultExpandedKeys"
         :data="selfData"
         :props="selfProps"
         :node-key="nodeKey"
@@ -97,12 +97,12 @@ export default {
     // 宽度
     width: String,
     //是否展开全部
-    isExpand: {
+    defaultExpandAll: {
       type: Boolean,
       default: false
     },
     //默认展开的节点的 key 的数组
-    expandedKeys: {
+    defaultExpandedKeys: {
       type: Boolean,
       default: []
     }
