@@ -13,15 +13,17 @@
     <p>----------分割线------------</p>
     <wlTreeSelect
       ref="wl-tree-select"
+      v-model="selected"
+      node-key="id"
+      size="small"
       width="240"
       checkbox
-      size="small"
-      noCheckedClose
-      node-key="id"
       collapse-tags
+      noCheckedClose
       :data="treeData"
+      :defaultExpandAll="false"
+      :defaultExpandedKeys="[1]"
       @change="hindleChanged"
-      v-model="selected"
     ></wlTreeSelect>
     <div class="btn">
       <el-button size="small">关闭treeSelect下拉框</el-button>
@@ -30,8 +32,8 @@
 </template>
 
 <script>
-// import wlTreeSelect from "./pages/wl-tree/wl-tree-select.vue";
-// import wlVueSelect from "./pages/wl-select/wl-vue-select.vue";
+import wlTreeSelect from "./pages/wl-tree/wl-tree-select.vue";
+import wlVueSelect from "./pages/wl-select/wl-vue-select.vue";
 
 export default {
   name: "app",
@@ -109,8 +111,8 @@ export default {
     }
   },
   components: {
-    // wlVueSelect,
-    // wlTreeSelect
+    wlVueSelect,
+    wlTreeSelect
   }
 };
 </script>

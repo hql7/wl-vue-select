@@ -136,6 +136,8 @@ data() {
 | 14 | nowrap | 是否不允许多行显示，true则只显示一行 | Boolean | - | false |
 | 15 | noCheckedClose | 多选时，是否全部取消选中时，自动关闭选项区域 | Boolean | - | false |
 | 16 | size | 尺寸，用法同elementui | String | - | medium |
+| 17 | defaultExpandAll | 树形时，是否默认展开全部选项 | Boolean | - | true |
+| 18 | defaultExpandedKeys | 树形时，默认展开节点keys | Array | - | - |
 
 ## Methods 方法
 | 序号 | name | 说明 | 参数 |
@@ -143,6 +145,8 @@ data() {
 | 1 | closeOptions | 关闭树形下拉框的选项区 | - |
 
 ## 版本记录
+
+> 0.5.0 增加树形树形下拉框defaultExpandAll，defaultExpandedKeys字段
 
 > 0.4.9 增加关闭树形下拉框的选项区closeOptions方法
 
