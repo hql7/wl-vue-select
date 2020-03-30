@@ -103,7 +103,7 @@ export default {
     },
     //默认展开的节点的 key 的数组
     defaultExpandedKeys: {
-      type: Boolean,
+      type: Array,
       default: () => {
         return [];
       }
