@@ -14,7 +14,8 @@
           ref="tree-select"
           class="wl-options-tree"
           highlight-current
-          default-expand-all
+          :default-expand-all="defaultExpandAll"
+          :default-expanded-keys="defaultExpandedKeys"
           :data="selfData"
           :props="selfProps"
           :node-key="nodeKey"
@@ -161,6 +162,18 @@ export default {
     size: {
       type: String,
       default: "medium"
+    },
+    //是否展开全部
+    defaultExpandAll: {
+      type: Boolean,
+      default: false
+    },
+    //默认展开的节点的 key 的数组
+    defaultExpandedKeys: {
+      type: Array,
+      default: () => {
+        return [];
+      }
     }
   },
   model: {
