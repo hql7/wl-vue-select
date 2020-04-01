@@ -4,9 +4,10 @@
     <!-- 选中框区 -->
     <el-popover
       placement="bottom"
+      :width="width"
       :trigger="trigger"
       :disabled="disabled"
-      :width="width"
+      transition="fade-in"
       v-model="options_show"
     >
       <el-scrollbar class="wl-treeselect-popover">
@@ -215,7 +216,7 @@ export default {
       if (this.disabled) return;
       if (this.checkbox) {
         this.$refs["tree-select"].setChecked(Id, false, true);
-        this.selecteds = this.$refs["tree-select"].getCheckedNodes()
+        this.selecteds = this.$refs["tree-select"].getCheckedNodes();
         if (this.selecteds.length === 0 && this.noCheckedClose)
           this.options_show = false;
       } else {
@@ -267,7 +268,7 @@ export default {
       }
     },
     // 关闭
-    closeOptions(){
+    closeOptions() {
       this.options_show = false;
     }
   },
@@ -333,7 +334,7 @@ export default {
   .selected-box {
     display: flex;
     border: 1px solid #dcdfe6;
-    padding: 0 10px;
+    padding: 0 5px 0 8px;
     width: 100%;
     min-height: 36px;
     line-height: 34px;
@@ -430,20 +431,21 @@ export default {
   margin: 0;
 }
 
-.fade-rotate-enter-active {
-  animation: rotate 0.3s;
+// 过度效果
+.fade-in-enter-active,
+.fade-in-leave-active {
+  transition: all 0.4s;
+}
+.fade-in-enter, .fade-in-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+  transform: translateY(-10px);
 }
 
+.fade-rotate-enter-active,
 .fade-rotate-leave-active {
-  animation: rotate 0.3s reverse;
+  transition: all 0.2s;
 }
-
-@keyframes rotate {
-  0% {
-    transform: rotate(180deg);
-  }
-  100% {
-    transform: rotate(0);
-  }
+.fade-rotate-enter, .fade-rotate-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  transform: rotateZ(45deg);
 }
 </style>

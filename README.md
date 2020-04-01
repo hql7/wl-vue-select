@@ -9,7 +9,7 @@ Tree drop-down box for vue framework and ordinary drop-down box with select all.
 因这两个需求非常普遍，所以作为一个独立插件发布。    
 [el-select](https://element.eleme.cn/#/zh-CN/component/select)
 
-## [在线访问](https://hql7.github.io/)
+## [在线访问](http://wlui.com.cn/ui/select)
 
 ### 主要发布记录
 > 0.4.8 修复树形下拉框，子节点全部选中时，父节点无法取消的问题
@@ -145,6 +145,8 @@ data() {
 | 1 | closeOptions | 关闭树形下拉框的选项区 | - |
 
 ## 版本记录
+
+> 0.5.1 优化树形下拉框，选项显示过度效果
 
 > 0.5.0 增加树形树形下拉框defaultExpandAll，defaultExpandedKeys字段
 
