@@ -138,6 +138,8 @@ data() {
 | 16 | size | 尺寸，用法同elementui | String | - | medium |
 | 17 | defaultExpandAll | 树形时，是否默认展开全部选项 | Boolean | - | true |
 | 18 | defaultExpandedKeys | 树形时，默认展开节点keys | Array | - | - |
+| 19 | filterable | 是否开启搜索功能(增加树形下拉时，和普通下拉框一样的功能) | Boolean | - | false |
+| 20 | filterFnc | 树形时，可选自定义搜索逻辑，不传则根据props内的label对应的字段搜索。function(value,data) | Function | - | - |
 
 ## Methods 方法
 | 序号 | name | 说明 | 参数 |
@@ -145,6 +147,8 @@ data() {
 | 1 | closeOptions | 关闭树形下拉框的选项区 | - |
 
 ## 版本记录
+
+> 0.5.2 优化树形下拉框，增加搜索及自定义搜索功能
 
 > 0.5.1 优化树形下拉框，选项显示过度效果
 

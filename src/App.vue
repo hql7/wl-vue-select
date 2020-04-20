@@ -6,6 +6,7 @@
       :props="props"
       :data="data"
       multiple
+      filterable
       collapse-tags
       default-select
       noCheckedClose
@@ -19,6 +20,7 @@
       width="240"
       checkbox
       collapse-tags
+      filterable
       noCheckedClose
       :data="treeData"
       :defaultExpandAll="false"

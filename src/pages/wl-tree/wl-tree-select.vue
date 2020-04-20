@@ -11,6 +11,7 @@
       v-model="options_show"
     >
       <el-scrollbar class="wl-treeselect-popover">
+        <el-input v-if="filterable" v-model="filterText" :size="size" placeholder="请输入关键词"></el-input>
         <el-tree
           ref="tree-select"
           class="wl-options-tree"
@@ -20,6 +21,7 @@
           :node-key="nodeKey"
           :show-checkbox="checkbox"
           :expand-on-click-node="false"
+          :filter-node-method="filterNode"
           :default-checked-keys="checked_keys"
           :default-expand-all="defaultExpandAll"
           :default-expanded-keys="defaultExpandedKeys"
@@ -96,7 +98,8 @@ export default {
       selecteds: [], // 选中数据
       options_show: false, // 是否显示下拉选项
       checked_keys: [], // 默认选中
-      guid: "00000000-0000-0000-0000-000000000000"
+      guid: "00000000-0000-0000-0000-000000000000",
+      filterText: ""
     };
   },
   props: {
@@ -175,7 +178,14 @@ export default {
       default: () => {
         return [];
       }
-    }
+    },
+    // 是否使用搜索
+    filterable: {
+      type: Boolean,
+      default: false
+    },
+    // 自定义筛选函数
+    filterFnc: Function
   },
   model: {
     prop: "value", //这里使我们定义的v-model属性
@@ -270,6 +280,12 @@ export default {
     // 关闭
     closeOptions() {
       this.options_show = false;
+    },
+    // 树节点筛选
+    filterNode(value, data) {
+      if (this.filterFnc) return this.filterFnc(value, data);
+      if (!value) return true;
+      return data[this.selfProps.label].indexOf(value) !== -1;
     }
   },
   created() {
@@ -278,6 +294,10 @@ export default {
   watch: {
     value(val) {
       this.chaeckDefaultValue();
+    },
+    // 树节点搜索
+    filterText(val) {
+      this.$refs["tree-select"].filter(val);
     }
   },
   computed: {
