@@ -92,7 +92,7 @@
  * selected -> 选中数据
  */
 export default {
-  name: "wlTreeSelect",
+  name: "wl-tree-select",
   data() {
     return {
       selecteds: [], // 选中数据
