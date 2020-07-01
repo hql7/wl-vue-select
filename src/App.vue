@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <!---->
-    <wlVueSelect
+    <wl-vue-select
       v-model="value"
       :props="props"
       :data="data"
@@ -10,9 +10,9 @@
       collapse-tags
       default-select
       noCheckedClose
-    ></wlVueSelect>
+    ></wl-vue-select>
     <p>----------分割线------------</p>
-    <wlTreeSelect
+    <wl-tree-select
       ref="wl-tree-select"
       v-model="selected"
       node-key="id"
@@ -26,7 +26,7 @@
       :defaultExpandAll="false"
       :defaultExpandedKeys="[1]"
       @change="hindleChanged"
-    ></wlTreeSelect>
+    ></wl-tree-select>
     <div class="btn">
       <el-button size="small">关闭treeSelect下拉框</el-button>
     </div>
@@ -34,11 +34,15 @@
 </template>
 
 <script>
-import wlTreeSelect from "./pages/wl-tree/wl-tree-select.vue";
-import wlVueSelect from "./pages/wl-select/wl-vue-select.vue";
+// import wlTreeSelect from "./pages/wl-tree/wl-tree-select.vue";
+// import wlVueSelect from "./pages/wl-select/wl-vue-select.vue";
 
 export default {
   name: "app",
+  components: {
+    // wlVueSelect,
+    // wlTreeSelect
+  },
   data() {
     return {
       value: [], // 选中值
@@ -64,43 +68,14 @@ export default {
         label: "name",
         value: "id"
       }, // 配置
-      treeData: [
-        {
-          id: "love",
-          name: "所有和你走过的风光",
-          children: [
-            {
-              id: 1,
-              name: "海边",
-              children: [
-                {
-                  id: 5,
-                  name: "蓬莱"
-                },
-                {
-                  id: 6,
-                  name: "威海"
-                }
-              ]
-            },
-            {
-              id: 2,
-              name: "森林",
-              children: []
-            },
-            {
-              id: 3,
-              name: "草原"
-            },
-            {
-              id: 4,
-              name: "古城"
-            }
-          ]
-        }
-      ],
-      selected: ["1"] // 树下拉框选中数据
+      treeData: [{"children":[{"name":"安全运营-子类型001","id":"4028dbde729c1e0301729c1fa7390001"},{"name":"安全运营-子1","id":"8a8be6ac72ad7a3a0172bb37f6e40001"},{"name":"安全运营-子2","id":"8a8be6ac72ad7a3a0172bb381bbf0002"},{"name":"安全运营-子3","id":"8a8be6ac72ad7a3a0172bb3843e60003"}],"name":"安全运营","id":"4028dbde729c1e0301729c1ea1560000"},{"children":[{"name":"测试类型二","id":"8a8be6ac72a68ea60172a7312cf30002"},{"name":"测试类型-子1","id":"8a8be6ac72ad7a3a0172bb38804c0004"},{"name":"测试类型-子2","id":"8a8be6ac72ad7a3a0172bb3893d30005"},{"name":"测试类型-子3","id":"8a8be6ac72ad7a3a0172bb38a6f50006"}],"name":"测试类型","id":"8a8be6ac72a68ea60172a730ef8a0001"},{"children":[],"name":"测试类型六","id":"8a8be6ac72a68ea60172a73200340003"}],
+      selected: [] // 树下拉框选中数据
     };
+  },
+  created(){
+    setTimeout(()=>{
+      this.selected = [{"name":"测试类型二","id":"8a8be6ac72a68ea60172a7312cf30002"}]
+    },500)
   },
   methods: {
     hindleChanged(val) {
@@ -112,10 +87,7 @@ export default {
       this.$refs["wl-tree-select"].closeOptions();
     }
   },
-  components: {
-    wlVueSelect,
-    wlTreeSelect
-  }
+  
 };
 </script>
 
