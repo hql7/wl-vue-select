@@ -1,10 +1,10 @@
 {
   "name": "wl-vue-select",
-  "version": "0.5.3",
+  "version": "0.5.4",
   "author": "weilan<https://github.com/hql7>",
   "license": "MIT",
   "private": false,
-  "main": "lib/wl-vue-select.common.js",
+  "main": "lib/wl-vue-select.umd.min.js",
   "bugs": {
     "url": "https://github.com/hql7/wl-vue-select/issues"
   },

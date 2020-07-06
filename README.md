@@ -123,7 +123,7 @@ data() {
 | 1    | data          | options 可选列表数据                                                                                 | Array               | -      | -                                  |
 | 2    | props         | 配置项：显示名字的 label 字段和绑定值的 value 字段                                                   | Object              | -      | { label: "label", value: "value" } |
 | 3    | showTotal     | 当可选项大于多少个时显示`全选`选项                                                                   | Number              | -      | 1                                  |
-| 4    | defaultSelect | 是否启用默认选中,如果开启`全部`时选中全部，无全部时选中第一个。(开启此功能请不要给 v-model 赋初始值) | Boolean             | -      | false                              |
+| 4    | defaultSelect[废弃] | 是否启用默认选中,如果开启`全部`时选中全部，无全部时选中第一个。(开启此功能请不要给 v-model 赋初始值) | Boolean             | -      | false                              |
 | 5    | 其他          | [其他 el-select 提供的参数](https://element.eleme.cn/#/zh-CN/component/select)                       | -                   | -      | -                                  |
 | 6    | nodeKey       | 使用树形下拉框时，必须使用 key 来解析数据                                                            | String              | -      | id                                 |
 | 7    | selected[废弃]      | 使用树形下拉框时，绑定选中数据【现改为v-model 】                                                                  | String-Number-Array-Object | -      | -                                  |
@@ -147,6 +147,8 @@ data() {
 | 1 | closeOptions | 关闭树形下拉框的选项区 | - |
 
 ## 版本记录
+
+> 0.5.4 修复初始时选中宣布数据没有变化为全部的问题；增加script引入使用功能
 
 > 0.5.3 调整组件名为大驼峰；增加按需引入
 

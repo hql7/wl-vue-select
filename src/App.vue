@@ -8,8 +8,8 @@
       multiple
       filterable
       collapse-tags
-      default-select
       noCheckedClose
+      @change="hindleChanged"
     ></wl-vue-select>
     <p>----------分割线------------</p>
     <wl-tree-select
@@ -34,18 +34,18 @@
 </template>
 
 <script>
-// import wlTreeSelect from "./pages/wl-tree/wl-tree-select.vue";
-// import wlVueSelect from "./pages/wl-select/wl-vue-select.vue";
+import wlTreeSelect from "./pages/wl-tree/wl-tree-select.vue";
+import wlVueSelect from "./pages/wl-select/wl-vue-select.vue";
 
 export default {
   name: "app",
   components: {
-    // wlVueSelect,
-    // wlTreeSelect
+    wlVueSelect,
+    wlTreeSelect
   },
   data() {
     return {
-      value: [], // 选中值
+      value: [2,1,3,4], // 选中值
       data: [
         {
           id: 1,
@@ -79,7 +79,7 @@ export default {
   },
   methods: {
     hindleChanged(val) {
-      // console.log(val,2)
+      console.log(val)
       // console.log(this.selected)
     },
     // 手动关闭树形下拉框选项
