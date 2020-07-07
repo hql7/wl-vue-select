@@ -16,7 +16,6 @@
       ref="wl-tree-select"
       v-model="selected"
       node-key="id"
-      size="small"
       width="240"
       checkbox
       collapse-tags
@@ -69,13 +68,8 @@ export default {
         value: "id"
       }, // 配置
       treeData: [{"children":[{"name":"安全运营-子类型001","id":"4028dbde729c1e0301729c1fa7390001"},{"name":"安全运营-子1","id":"8a8be6ac72ad7a3a0172bb37f6e40001"},{"name":"安全运营-子2","id":"8a8be6ac72ad7a3a0172bb381bbf0002"},{"name":"安全运营-子3","id":"8a8be6ac72ad7a3a0172bb3843e60003"}],"name":"安全运营","id":"4028dbde729c1e0301729c1ea1560000"},{"children":[{"name":"测试类型二","id":"8a8be6ac72a68ea60172a7312cf30002"},{"name":"测试类型-子1","id":"8a8be6ac72ad7a3a0172bb38804c0004"},{"name":"测试类型-子2","id":"8a8be6ac72ad7a3a0172bb3893d30005"},{"name":"测试类型-子3","id":"8a8be6ac72ad7a3a0172bb38a6f50006"}],"name":"测试类型","id":"8a8be6ac72a68ea60172a730ef8a0001"},{"children":[],"name":"测试类型六","id":"8a8be6ac72a68ea60172a73200340003"}],
-      selected: [] // 树下拉框选中数据
+      selected: ['8a8be6ac72ad7a3a0172bb38a6f50006'] // 树下拉框选中数据
     };
-  },
-  created(){
-    setTimeout(()=>{
-      this.selected = [{"name":"测试类型二","id":"8a8be6ac72a68ea60172a7312cf30002"}]
-    },500)
   },
   methods: {
     hindleChanged(val) {

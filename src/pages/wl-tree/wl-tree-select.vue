@@ -91,6 +91,8 @@
  * emit:
  * selected -> 选中数据
  */
+import { DataType } from "wl-core";
+
 export default {
   name: "wl-tree-select",
   data() {
@@ -194,18 +196,6 @@ export default {
   methods: {
     // 树节点-checkbox选中
     handleCheckChange(val, { checkedNodes, checkedKeys }) {
-      /* let nodes = [];
-      if (this.leaf) {
-        nodes = this.$refs["tree-select"].getCheckedNodes(this.leaf);
-      } else {
-        checkedNodes.forEach(i => {
-          let parent_node =
-            Array.isArray(i[this.selfProps.children]) &&
-            i[this.selfProps.children].length > 0;
-          nodes.push();
-        });
-      }
-      */
       let nodes = this.$refs["tree-select"].getCheckedNodes(this.leaf);
       this.selecteds = nodes;
       this.$emit("change", nodes);
@@ -255,16 +245,17 @@ export default {
       }
       // 多选处理
       if (this.checkbox) {
-        this.checked_keys =
-          typeof val[0] === "object" ? val.map(i => i[this.nodeKey]) : val;
+        this.checked_keys = DataType.isObject(val[0])
+          ? val.map(i => i[this.nodeKey])
+          : val;
         this.$nextTick(() => {
           this.selecteds = this.$refs["tree-select"].getCheckedNodes(this.leaf);
         });
         return;
       }
       // 单选处理
-      if (typeof val === "object") {
-        let _val = Array.isArray(val) ? val[0] : val;
+      let _val = Array.isArray(val) ? val[0] : val;
+      if (DataType.isObject(_val)) {
         this.selecteds = [_val];
         this.$nextTick(() => {
           this.$refs["tree-select"].setCurrentNode(_val);
@@ -357,7 +348,7 @@ export default {
     padding: 0 5px 0 8px;
     width: 100%;
     min-height: 36px;
-    line-height: 34px;
+    line-height: 32px;
     box-sizing: border-box;
     border-radius: 4px;
     cursor: pointer;
@@ -384,15 +375,15 @@ export default {
 
   .selected-box.size-small {
     min-height: 32px;
-    line-height: 30px;
+    line-height: 28px;
   }
   .selected-box.size-mini {
     min-height: 28px;
-    line-height: 26px;
+    line-height: 24px;
   }
   .selected-box.size-default {
     min-height: 40px;
-    line-height: 38px;
+    line-height: 36px;
   }
 
   .no-wrap {
