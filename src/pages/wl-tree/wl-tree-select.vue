@@ -262,7 +262,7 @@ export default {
         });
       } else {
         this.$nextTick(() => {
-          this.$refs["tree-select"].setCurrentKey(val);
+          this.$refs["tree-select"].setCurrentKey(_val);
           let _node = this.$refs["tree-select"].getCurrentNode();
           this.selecteds = _node ? [_node] : [];
         });
