@@ -1,7 +1,7 @@
-import wlVueSelect from "./wl-vue-select.vue";
+import WlVueSelect from "./wl-vue-select.vue";
 
-wlVueSelect.install = function(Vue) {
-  Vue.component(wlVueSelect.name, wlVueSelect);
+WlVueSelect.install = function (Vue) {
+  Vue.component(WlVueSelect.name, WlVueSelect);
 };
 
-export default wlVueSelect;
+export default WlVueSelect;

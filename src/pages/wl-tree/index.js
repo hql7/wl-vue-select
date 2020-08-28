@@ -1,7 +1,7 @@
-import wlTreeSelect from "./wl-tree-select.vue";
+import WlTreeSelect from "./wl-tree-select.vue";
 
-wlTreeSelect.install = function(Vue) {
-  Vue.component(wlTreeSelect.name, wlTreeSelect);
+WlTreeSelect.install = function(Vue) {
+  Vue.component(WlTreeSelect.name, WlTreeSelect);
 };
 
-export default wlTreeSelect;
+export default WlTreeSelect;

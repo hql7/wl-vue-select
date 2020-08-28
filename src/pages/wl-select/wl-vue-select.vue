@@ -47,7 +47,7 @@
  * emit:输出
  */
 export default {
-  name: "wl-vue-select",
+  name: "WlVueSelect",
   data() {
     return {
       // value: "", // 当前选中值
