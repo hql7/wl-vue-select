@@ -21,6 +21,7 @@
       collapse-tags
       filterable
       noCheckedClose
+      checkStrictly
       :data="treeData"
       :defaultExpandAll="false"
       :defaultExpandedKeys="[1]"

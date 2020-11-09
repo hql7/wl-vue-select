@@ -140,6 +140,8 @@ data() {
 | 18 | defaultExpandedKeys | 树形时，默认展开节点keys | Array | - | - |
 | 19 | filterable | 是否开启搜索功能(增加树形下拉时，和普通下拉框一样的功能) | Boolean | - | false |
 | 20 | filterFnc | 树形时，可选自定义搜索逻辑，不传则根据props内的label对应的字段搜索。function(value,data) | Function | - | - |
+| 21 | checkStrictly | 树形时，是否父子不关联 | Boolean | - | false |
+| 22 | expandOnClickNode | 树形时，是否点击节点能展开收缩 | Boolean | - | false |
 
 ## Methods 方法
 | 序号 | name | 说明 | 参数 |
@@ -147,6 +149,8 @@ data() {
 | 1 | closeOptions | 关闭树形下拉框的选项区 | - |
 
 ## 版本记录
+
+> 0.5.8 树形下拉框增加父子不关联配置
 
 > 0.5.5 修复树形下拉框初始绑定值为简单数组时的自动选中逻辑错误；修复垂直居中样式；
 

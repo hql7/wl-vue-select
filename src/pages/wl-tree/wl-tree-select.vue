@@ -11,7 +11,12 @@
       v-model="options_show"
     >
       <el-scrollbar class="wl-treeselect-popover">
-        <el-input v-if="filterable" v-model="filterText" :size="size" placeholder="请输入关键词"></el-input>
+        <el-input
+          v-if="filterable"
+          v-model="filterText"
+          :size="size"
+          placeholder="请输入关键词"
+        ></el-input>
         <el-tree
           ref="tree-select"
           class="wl-options-tree"
@@ -20,10 +25,11 @@
           :props="selfProps"
           :node-key="nodeKey"
           :show-checkbox="checkbox"
-          :expand-on-click-node="false"
+          :check-strictly="checkStrictly"
           :filter-node-method="filterNode"
           :default-checked-keys="checked_keys"
           :default-expand-all="defaultExpandAll"
+          :expand-on-click-node="expandOnClickNode"
           :default-expanded-keys="defaultExpandedKeys"
           @check="handleCheckChange"
           @node-click="treeItemClick"
@@ -33,7 +39,7 @@
       <div
         slot="reference"
         class="selected-box"
-        :class="[{'wl-disabled': disabled, 'no-wrap': nowrap }, sizeClass]"
+        :class="[{ 'wl-disabled': disabled, 'no-wrap': nowrap }, sizeClass]"
       >
         <div class="tag-box">
           <div v-show="selecteds.length > 0">
@@ -46,7 +52,8 @@
                 :title="item[selfProps.label]"
                 :key="item[nodeKey]"
                 @close="tabClose(item[nodeKey])"
-              >{{ item[selfProps.label] }}</el-tag>
+                >{{ item[selfProps.label] }}</el-tag
+              >
             </template>
             <template v-else>
               <el-tag
@@ -55,15 +62,19 @@
                 class="wl-select-tag"
                 :title="collapseTagsItem[selfProps.label]"
                 @close="tabClose(collapseTagsItem[nodeKey])"
-              >{{ collapseTagsItem[selfProps.label] }}</el-tag>
+                >{{ collapseTagsItem[selfProps.label] }}</el-tag
+              >
               <el-tag
-                v-if="this.selecteds.length>1"
+                v-if="this.selecteds.length > 1"
                 :size="size"
                 class="wl-select-tag"
-              >+{{ this.selecteds.length-1}}</el-tag>
+                >+{{ this.selecteds.length - 1 }}</el-tag
+              >
             </template>
           </div>
-          <p class="wl-placeholder-box" v-show="selecteds.length == 0">{{placeholder}}</p>
+          <p class="wl-placeholder-box" v-show="selecteds.length == 0">
+            {{ placeholder }}
+          </p>
         </div>
         <div class="icon-box">
           <transition name="fade-rotate" mode="out-in">
@@ -188,6 +199,16 @@ export default {
     },
     // 自定义筛选函数
     filterFnc: Function,
+    // 是否父子不关联
+    checkStrictly: {
+      type: Boolean,
+      default: false,
+    },
+    // 是否点击节点展开收缩
+    expandOnClickNode: {
+      type: Boolean,
+      default: false,
+    },
   },
   model: {
     prop: "value", //这里使我们定义的v-model属性
