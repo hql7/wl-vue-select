@@ -142,6 +142,7 @@ data() {
 | 20 | filterFnc | 树形时，可选自定义搜索逻辑，不传则根据props内的label对应的字段搜索。function(value,data) | Function | - | - |
 | 21 | checkStrictly | 树形时，是否父子不关联 | Boolean | - | false |
 | 22 | expandOnClickNode | 树形时，是否点击节点能展开收缩 | Boolean | - | false |
+| 23 | checkOnClickNode | 是否在点击节点的时候选中节点，默认值为 false，即只有在点击复选框时才会选中节点 | Boolean | - | false | 
 
 ## Methods 方法
 | 序号 | name | 说明 | 参数 |

@@ -29,6 +29,7 @@
           :filter-node-method="filterNode"
           :default-checked-keys="checked_keys"
           :default-expand-all="defaultExpandAll"
+          :check-on-click-node="checkOnClickNode"
           :expand-on-click-node="expandOnClickNode"
           :default-expanded-keys="defaultExpandedKeys"
           @check="handleCheckChange"
@@ -64,10 +65,7 @@
                 @close="tabClose(collapseTagsItem[nodeKey])"
                 >{{ collapseTagsItem[selfProps.label] }}</el-tag
               >
-              <el-tag
-                v-if="this.selecteds.length > 1"
-                :size="size"
-                class="wl-select-tag"
+              <el-tag v-if="this.selecteds.length > 1" :size="size" class="wl-select-tag"
                 >+{{ this.selecteds.length - 1 }}</el-tag
               >
             </template>
@@ -209,6 +207,11 @@ export default {
       type: Boolean,
       default: false,
     },
+    // 是否点击节点选中复选框
+    checkOnClickNode: {
+      type: Boolean,
+      default: false,
+    },
   },
   model: {
     prop: "value", //这里使我们定义的v-model属性
@@ -216,12 +219,11 @@ export default {
   },
   methods: {
     // 树节点-checkbox选中
-    handleCheckChange(val, { checkedNodes, checkedKeys }) {
+    handleCheckChange(val, { checkedKeys }) {
       let nodes = this.$refs["tree-select"].getCheckedNodes(this.leaf);
       this.selecteds = nodes;
       this.$emit("change", nodes);
-      if (checkedKeys.length === 0 && this.noCheckedClose)
-        this.options_show = false;
+      if (checkedKeys.length === 0 && this.noCheckedClose) this.options_show = false;
     },
     // 树节点-点击选中
     treeItemClick(item, node) {
@@ -238,8 +240,7 @@ export default {
       if (this.checkbox) {
         this.$refs["tree-select"].setChecked(Id, false, true);
         this.selecteds = this.$refs["tree-select"].getCheckedNodes();
-        if (this.selecteds.length === 0 && this.noCheckedClose)
-          this.options_show = false;
+        if (this.selecteds.length === 0 && this.noCheckedClose) this.options_show = false;
       } else {
         this.selecteds = [];
         this.$refs["tree-select"].setCurrentKey(null);
@@ -252,9 +253,7 @@ export default {
       this.selecteds = [];
     },
     // 处理默认选中数据
-    chaeckDefaultValue() {
-      let val = this.value;
-
+    chaeckDefaultValue(val) {
       if (!val || (Array.isArray(val) && val.length === 0)) {
         this.selecteds = [];
         if (!this.checkbox) return;
@@ -266,9 +265,10 @@ export default {
       }
       // 多选处理
       if (this.checkbox) {
-        this.checked_keys = DataType.isObject(val[0])
+        let checked_keys = DataType.isObject(val[0])
           ? val.map((i) => i[this.nodeKey])
           : val;
+        this.$set(this, "checked_keys", checked_keys);
         this.$nextTick(() => {
           this.selecteds = this.$refs["tree-select"].getCheckedNodes(this.leaf);
         });
@@ -300,12 +300,13 @@ export default {
       return data[this.selfProps.label].indexOf(value) !== -1;
     },
   },
-  created() {
-    this.chaeckDefaultValue();
-  },
+
   watch: {
-    value(val) {
-      this.chaeckDefaultValue();
+    value: {
+      handler(val) {
+        this.chaeckDefaultValue(val);
+      },
+      immediate: true,
     },
     // 树节点搜索
     filterText(val) {
