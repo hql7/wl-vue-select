@@ -8738,6 +8738,17 @@ wl-vue-select@^0.5.8:
     wl-core "^1.1.4"
     wl-vue-select "^0.5.3"
 
+wl-vue-select@^0.5.9:
+  version "0.5.9"
+  resolved "https://registry.yarnpkg.com/wl-vue-select/-/wl-vue-select-0.5.9.tgz#b43a75802851ecb0c219a08552e68253d82132d4"
+  integrity sha512-SKBR61Pz6Gkpjl7fKx34OBtKuaGjOGKaB5FbaBcT0ufrRB/mCzc2gPSvbxgEsMw/qUnvnAHfDo5oBp5rb+7zww==
+  dependencies:
+    core-js "^2.6.5"
+    element-ui "^2.12.0"
+    vue "^2.6.10"
+    wl-core "^1.1.4"
+    wl-vue-select "^0.5.8"
+
 word-wrap@~1.2.3:
   version "1.2.3"
   resolved "https://registry.yarnpkg.com/word-wrap/-/word-wrap-1.2.3.tgz#610636f6b1f703891bd34771ccb17fb93b47079c"

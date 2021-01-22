@@ -100,7 +100,7 @@
  * emit:
  * selected -> 选中数据
  */
-import { DataType } from "wl-core";
+import { DataType/* , flattenDeep */ } from "wl-core";
 
 export default {
   name: "WlTreeSelect",
@@ -111,6 +111,7 @@ export default {
       checked_keys: [], // 默认选中
       guid: "00000000-0000-0000-0000-000000000000",
       filterText: "",
+      cacheChildren: {}, // 缓存查找过children的节点
     };
   },
   props: {
@@ -218,12 +219,47 @@ export default {
     event: "change",
   },
   methods: {
-    // 树节点-checkbox选中
-    handleCheckChange(val, { checkedKeys }) {
+    /**
+     * @name 树节点-checkbox选中
+     * @param {object} val 当前节点
+     * @param {object} any 选中节点数据
+     */
+    handleCheckChange(val, { checkedNodes }) {
+      // 判断是选中还是取消选中
+      // const isAdd = checkedNodes.some((i) => i[this.nodeKey] == val[this.nodeKey]);
+      // 判断是否有子节点
+      /* const isLeaf = !val[this.selfProps.children]?.length;
+      // 无子节点
+      if(isLeaf){
+        
+      }
+      // 判断缓存中是否有此节点的全部子节点，如果有直接用，如果没有则生成此节点的全部子节点数组
+      let str_children = "";
+      if (cacheChildren[i[this.nodeKey]]) {
+        str_children = cacheChildren[i[this.nodeKey]];
+      } else {
+        let arr_children = flattenDeep();
+        str_children = detailed_children.map((i) => i[this.nodeKey]).jion(",");
+      }
+      // 非只选叶子节点时
+      if (!this.leaf) {
+        if (isAdd) {
+          // 添加的节点有子孙节点，将所有子孙节点移除，此节点推入；无子孙节点直接推入。
+        } else {
+          // 移除时，直接移除
+        }
+      } else {
+        // 只可选叶子节点时
+        if (isAdd) {
+          // 添加的节点有子孙节点，找到所有最叶子节点，将所有最叶子节点推入；无子孙节点直接推入
+        } else {
+          // 移除时，直接移除
+        }
+      } */
       let nodes = this.$refs["tree-select"].getCheckedNodes(this.leaf);
       this.selecteds = nodes;
       this.$emit("change", nodes);
-      if (checkedKeys.length === 0 && this.noCheckedClose) this.options_show = false;
+      if (checkedNodes.length === 0 && this.noCheckedClose) this.options_show = false;
     },
     // 树节点-点击选中
     treeItemClick(item, node) {
@@ -300,7 +336,6 @@ export default {
       return data[this.selfProps.label].indexOf(value) !== -1;
     },
   },
-
   watch: {
     value: {
       handler(val) {
@@ -315,6 +350,7 @@ export default {
   },
   computed: {
     selfData() {
+      this.cacheChildren = {};
       return this.data;
     },
     selfProps() {

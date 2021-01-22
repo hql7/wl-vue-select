@@ -18,9 +18,7 @@
       checkOnClickNode
       node-key="id"
       width="240"
-      leaf
       checkbox
-      collapse-tags
       filterable
       noCheckedClose
       :data="treeData"
@@ -92,7 +90,7 @@ export default {
         },
         { children: [], name: "测试类型六", id: "8a8be6ac72a68ea60172a73200340003" },
       ],
-      selected: ["4028dbde729c1e0301729c1ea1560000"], // 树下拉框选中数据
+      selected: [], // 树下拉框选中数据
     };
   },
   methods: {

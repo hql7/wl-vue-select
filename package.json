@@ -1,5 +1,5 @@
 {
-  "name": "wl-vue-select",
+  "name": "wl-vue-2select",
   "version": "0.5.9",
   "author": "weilan<https://github.com/hql7>",
   "license": "MIT",
@@ -22,7 +22,7 @@
     "element-ui": "^2.12.0",
     "vue": "^2.6.10",
     "wl-core": "^1.1.4",
-    "wl-vue-select": "^0.5.8"
+    "wl-vue-select": "^0.5.9"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.12.0",
